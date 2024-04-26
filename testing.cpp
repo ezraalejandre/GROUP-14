@@ -42,3 +42,107 @@ pagkalabas ng result, may option kung gusto niya magregister sa ating asylum/aya
 PSEUDOCODE:
 
 */
+
+
+//For DSA activity, yung gagawin sa diagnosed at undiagnosed. May search at sort.
+#include <iostream>
+#include <string>
+using namespace std;
+
+void selectionSort(string arr[], int n);
+int linearSearch(string arr[], int n, string key);
+void groupDiagnoses(string arr[], int n);
+
+int main() {
+    string diagnoses[] = {
+        "Neurodevelopmental disorders",
+        "Neurocognitive disorders",
+        "Sleep-wake disorders",
+        "Anxiety Disorders",
+        "Depressive disorders",
+        "Bipolar and related disorders",
+        "Schizophrenia spectrum and other psychotic disorders",
+        "Trauma- and stressor-related disorders",
+        "Substance-related and addictive disorders",
+        "Personality disorders",
+        "Obsessive-compulsive and related disorders",
+        "Feeding and eating disorders"
+    };
+    int size = sizeof(diagnoses) / sizeof(diagnoses[0]);
+    
+    int choice;
+    cout << "What is your mental health assessment status?" << endl;
+    cout << "1. Diagnosed" << endl;
+    cout << "2. Undiagnosed" << endl;
+    cout << "Answer (1/2): ";
+    cin >> choice;
+
+    if (choice == 1) {
+        selectionSort(diagnoses, size);
+        groupDiagnoses(diagnoses, size);
+
+        int selected;
+        cout << "Please choose from the given diagnoses:" << endl;
+        for (int i = 0; i < size; i++) {
+            cout << i + 1 << ". " << diagnoses[i] << endl;
+        }
+        cout << "Answer (1-" << size << "): ";
+        cin >> selected;
+
+        string selectedDiagnosis = diagnoses[selected - 1];
+        cout << selectedDiagnosis << endl;
+
+        int position = linearSearch(diagnoses, size, selectedDiagnosis);
+        if (position != -1) {
+            if (position <= 4) {
+                cout << "Your diagnosis is classified as mild." << endl;
+            } else if (position <= 8) {
+                cout << "Your diagnosis is classified as moderate." << endl;
+            } else if (position <= 11) {
+                cout << "Your diagnosis is classified as moderately severe." << endl;
+            } else {
+                cout << "Your diagnosis is classified as severe." << endl;
+            }
+        } else {
+            cout << "Diagnosis not found." << endl;
+        }
+    } else if (choice == 2) {
+        cout << "Please make a consultation appointment first." << endl;
+    } else {
+        cout << "Choose a valid answer (1/2)." << endl;
+    }
+
+    return 0;
+}
+
+void selectionSort(string arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            swap(arr[i], arr[minIndex]);
+        }
+    }
+}
+
+// Function to perform linear search
+int linearSearch(string arr[], int n, string key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i + 1; 
+        }
+    }
+    return -1; 
+}
+
+void groupDiagnoses(string arr[], int n) {
+    string mild[] = { arr[3], arr[4], arr[10], arr[11] };
+    string moderate[] = { arr[8], arr[1], arr[0], arr[9] };
+    string moderatelySevere[] = { arr[5], arr[2], arr[7] };
+    string severe[] = { arr[6] };
+}
+
