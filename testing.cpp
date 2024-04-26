@@ -153,3 +153,179 @@ void groupDiagnoses(string arr[], int n) {
     string moderatelySevere[] = { arr[5], arr[2], arr[7] };
     string severe[] = { arr[6] };
 }
+
+
+
+/* (Gezelle & Ric ) Eto yung na code namin kumbaga may kulang pa dito e , diko alam ano ilalagay ko about sa undiagnosed ,tas ano nilagay ko yung list of mental disorders mo 
+dun sa part ng diagnose */
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int maxPatients = 1000;
+
+struct Patient {
+    int id;
+    string name;
+    int age;
+    char gender;
+    string email;
+    string address;
+    string contactNumber; 
+    bool diagnosed;
+    string diagnosis;
+};
+
+// List of mental disorders
+string mentalDisorders[] = {
+    "Neurodevelopmental disorders",
+    "Neurocognitive disorders",
+    "Sleep-wake disorders",
+    "Anxiety Disorders",
+    "Depressive disorders",
+    "Bipolar and related disorders",
+    "Schizophrenia spectrum and other psychotic disorders",
+    "Trauma- and stressor-related disorders",
+    "Substance-related and addictive disorders",
+    "Personality disorders",
+    "Obsessive-compulsive and related disorders",
+    "Feeding and eating disorders"
+};
+const int numDisorders = sizeof(mentalDisorders) / sizeof(mentalDisorders[0]);
+
+// Function to register a new patient
+void registerPatient(Patient patients[], int& patientCount) {
+    if (patientCount < maxPatients) {
+        cout << "\n======= Patient Registration =======\n";
+        cout << "Enter patient name: ";
+        cin.ignore(); // Ignore newline character in buffer
+        getline(cin, patients[patientCount].name);
+        cout << "Enter patient age: ";
+        cin >> patients[patientCount].age;
+        cout << "Enter patient gender (M/F): ";
+        cin >> patients[patientCount].gender;
+        cout << "Enter patient email: ";
+        cin >> patients[patientCount].email;
+        cout << "Enter patient contact number: ";
+        cin >> patients[patientCount].contactNumber;
+        cout << "Enter patient address: ";
+        cin.ignore(); // Ignore newline character in buffer
+        getline(cin, patients[patientCount].address);
+        patients[patientCount].diagnosed = false;
+        patients[patientCount].id = patientCount + 1; // Assigning ID to the patient
+
+        cout << "Patient registered successfully with ID: " << patients[patientCount].id << endl;
+        patientCount++;
+    }
+    else {
+        cout << "Maximum patient limit reached.\n";
+    }
+}
+
+// Function to display all registered patients
+void displayPatients(const Patient patients[], int count) {
+    cout << "\n=============================================================================================================================\n";
+    cout << "| ID\t|  Name\t\t|  Age\t| Gender |     Email\t\t\t| Contact Number\t| Address\t\t| Diagnosed | Diagnosis\n |";
+    cout << "=============================================================================================================================\n";
+    for (int i = 0; i < count; ++i) {
+        cout << "| " << patients[i].id << "\t| " << patients[i].name << "\t\t|  " << patients[i].age << "\t|   " << patients[i].gender << "    | " << patients[i].email << "\t| " << patients[i].contactNumber << "\t| " << patients[i].address << "\t| " << (patients[i].diagnosed ? "Yes" : "No") << "\t   | ";
+        if (patients[i].diagnosed) {
+            cout << patients[i].diagnosis;
+        }
+        else {
+            cout << "N/A";
+        }
+        cout << "\n";
+    }
+    cout << "=============================================================================================================================\n";
+}
+
+// Function to diagnose a patient
+void diagnosePatient(Patient patients[], int& patientCount) {
+    cout << "\n======= Diagnose Patient =======\n";
+    cout << "Enter patient ID to diagnose: ";
+    int id;
+    cin >> id;
+    if (id >= 1 && id <= patientCount) {
+        cout << "Please select the diagnosis for the patient:\n";
+        for (int i = 0; i < numDisorders; ++i) {
+            cout << i + 1 << ". " << mentalDisorders[i] << endl;
+        }
+        cout << "Enter your choice (1-" << numDisorders << "): ";
+        int choice;
+        cin >> choice;
+        if (choice >= 1 && choice <= numDisorders) {
+            patients[id - 1].diagnosis = mentalDisorders[choice - 1];
+            patients[id - 1].diagnosed = true;
+            cout << "Patient diagnosed with " << mentalDisorders[choice - 1] << ".\n";
+        }
+        else {
+            cout << "Invalid choice.\n";
+        }
+    }
+    else {
+        cout << "Invalid patient ID.\n";
+    }
+}
+
+// Function to undiagnose a patient
+void undiagnosePatient(Patient patients[], int& patientCount) {
+    cout << "\n======= Undiagnose Patient =======\n";
+    cout << "Enter patient ID to undiagnose: ";
+    int id;
+    cin >> id;
+    if (id >= 1 && id <= patientCount) {
+        patients[id - 1].diagnosis = "";
+        patients[id - 1].diagnosed = false;
+        cout << "Patient undiagnosed. \n";
+    }
+    else {
+        cout << "Invalid patient ID.\n";
+    }
+}
+
+int main() {
+    Patient patients[maxPatients];
+    int patientCount = 0;
+
+    cout << "======= Welcome to Churvanes Asylum =======\n";
+    cout << "Please register the patient first.\n";
+    registerPatient(patients, patientCount);
+
+    while (true) {
+        cout << "\n======= Main Menu =======\n";
+        cout << "1. Register Patient\n";
+        cout << "2. Diagnose Patient\n";
+        cout << "3. Undiagnose Patient\n";
+        cout << "4. View Patients\n";
+        cout << "5. Exit\n";
+        cout << "========================\n";
+        cout << "Enter your choice: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            registerPatient(patients, patientCount);
+            break;
+        case 2:
+            diagnosePatient(patients, patientCount);
+            break;
+        case 3:
+            undiagnosePatient(patients, patientCount);
+            break;
+        case 4:
+            displayPatients(patients, patientCount);
+            break;
+        case 5:
+            cout << "Exiting the program.\n";
+            return 0;
+        default:
+            cout << "Invalid choice. Please enter a valid option.\n";
+        }
+    }
+
+    return 0;
+}
