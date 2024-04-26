@@ -43,6 +43,8 @@ PSEUDOCODE:
 
 */
 
+/*(Gezelle) ilagay ko na din pala here yung sa canva para sa presentation sa DSA*/
+https://www.canva.com/design/DAGDhjO0QWM/I84ZIHIQry-sA33SGsCirw/edit?utm_content=DAGDhjO0QWM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 //For DSA activity, yung gagawin sa diagnosed at undiagnosed. May search at sort.
 #include <iostream>
@@ -329,3 +331,4 @@ int main() {
 
     return 0;
 }
+
