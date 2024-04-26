@@ -69,7 +69,7 @@ int main() {
         "Feeding and eating disorders"
     };
     int size = sizeof(diagnoses) / sizeof(diagnoses[0]);
-    
+
     int choice;
     cout << "What is your mental health assessment status?" << endl;
     cout << "1. Diagnosed" << endl;
@@ -77,17 +77,28 @@ int main() {
     cout << "Answer (1/2): ";
     cin >> choice;
 
+    while (choice != 1 && choice != 2) {
+        cout << "Please choose a valid answer (1/2)." << endl;
+        cout << "Answer (1/2): ";
+        cin >> choice;
+    }
+
     if (choice == 1) {
         selectionSort(diagnoses, size);
         groupDiagnoses(diagnoses, size);
 
         int selected;
-        cout << "Please choose from the given diagnoses:" << endl;
+        cout << "Please choose one from the given diagnoses:" << endl;
         for (int i = 0; i < size; i++) {
             cout << i + 1 << ". " << diagnoses[i] << endl;
         }
         cout << "Answer (1-" << size << "): ";
         cin >> selected;
+
+        while (selected < 1 || selected > size) {
+            cout << "Please choose a valid answer (1-" << size << "): ";
+            cin >> selected;
+        }
 
         string selectedDiagnosis = diagnoses[selected - 1];
         cout << selectedDiagnosis << endl;
@@ -108,8 +119,6 @@ int main() {
         }
     } else if (choice == 2) {
         cout << "Please make a consultation appointment first." << endl;
-    } else {
-        cout << "Choose a valid answer (1/2)." << endl;
     }
 
     return 0;
@@ -129,14 +138,13 @@ void selectionSort(string arr[], int n) {
     }
 }
 
-// Function to perform linear search
 int linearSearch(string arr[], int n, string key) {
     for (int i = 0; i < n; i++) {
         if (arr[i] == key) {
-            return i + 1; 
+            return i + 1;
         }
     }
-    return -1; 
+    return -1;
 }
 
 void groupDiagnoses(string arr[], int n) {
@@ -145,4 +153,3 @@ void groupDiagnoses(string arr[], int n) {
     string moderatelySevere[] = { arr[5], arr[2], arr[7] };
     string severe[] = { arr[6] };
 }
-
