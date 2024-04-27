@@ -331,6 +331,6 @@ int main() {
 
     return 0;
 }
-burnek si gez
+
 
 
