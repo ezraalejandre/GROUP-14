@@ -228,7 +228,7 @@ void registerPatient(Patient patients[], int& patientCount) {
 // Function to display all registered patients
 void displayPatients(const Patient patients[], int count) {
     cout << "\n=============================================================================================================================\n";
-    cout << "| ID\t|  Name\t\t|  Age\t| Gender |     Email\t\t\t| Contact Number\t| Address\t\t| Diagnosed | Diagnosis\n |";
+    cout << "| ID\t|  Name\t\t|  Age\t| Gender |    Email\t\t\t| Contact Number\t| Address\t\t| Diagnosed | Diagnosis\n";
     cout << "=============================================================================================================================\n";
     for (int i = 0; i < count; ++i) {
         cout << "| " << patients[i].id << "\t| " << patients[i].name << "\t\t|  " << patients[i].age << "\t|   " << patients[i].gender << "    | " << patients[i].email << "\t| " << patients[i].contactNumber << "\t| " << patients[i].address << "\t| " << (patients[i].diagnosed ? "Yes" : "No") << "\t   | ";
