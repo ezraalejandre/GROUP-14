@@ -159,7 +159,7 @@ void groupDiagnoses(string arr[], int n) {
 
 
 /* (Gezelle & Ric ) Eto yung na code namin kumbaga may kulang pa dito e , diko alam ano ilalagay ko about sa undiagnosed ,tas ano nilagay ko yung list of mental disorders mo 
-dun sa part ng diagnose */
+dun sa part ng diagnose , May kulang pa pala about dun sa CRUD pero madali na yun , may inaayos lang din*/
 
 #include <iostream>
 #include <string>
